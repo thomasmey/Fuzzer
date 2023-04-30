@@ -1,0 +1,30 @@
+# https://www.rfc-editor.org/rfc/rfc7230#page-19
+# https://www.rfc-editor.org/rfc/rfc7231
+
+var crlf de.m3y3r.fuzzer.generator.common.ConstString "\r\n"
+var sp de.m3y3r.fuzzer.generator.common.ConstString "\u0020"
+var colon de.m3y3r.fuzzer.generator.common.ConstString ":"
+var randomToken de.m3y3r.fuzzer.generator.common.RandomString "128"
+var oneof de.m3y3r.fuzzer.generator.common.OneOf
+var requestUri de.m3y3r.fuzzer.generator.common.ConstString "*"
+var httpVersion de.m3y3r.fuzzer.generator.common.ConstString "HTTP/1.1"
+
+# request line
+oneof "OPTIONS" "GET" "HEAD" "POST" "PUT" "DELETE" "TRACE" "CONNECT" randomToken
+sp
+requestUri
+sp
+httpVersion
+crlf
+
+# headers
+( * "32"
+randomToken
+colon
+randomToken
+crlf
+)
+
+crlf
+
+# messageBody
